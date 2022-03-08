@@ -1,23 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import WelcomePage from "./pages/WelcomePage/WelcomePage";
+import CounterPage from "./pages/CounterPage/CounterPage";
+import CheckboxPage from "./pages/CheckboxPage/CheckboxPage";
+import {useState} from 'react';
 
-function App() {
+const OPTIONS = {
+  WELCOME : "welcome",
+  COUNTER : "counter",
+  CHECKBOX : "checkbox"
+}
+
+const App = () => {
+  const [selectedPage, setPageSelected] = useState(OPTIONS.WELCOME);
+  const handleChange = (evt) => {
+    setPageSelected(evt.target.value);
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <select onChange={handleChange}>
+        <option value={OPTIONS.WELCOME}>Welcome</option>
+        <option value={OPTIONS.COUNTER}>Counter</option>
+        <option value={OPTIONS.CHECKBOX}>Checkbox</option>
+      </select><br/>
+      Option selected: {selectedPage}
+      { selectedPage === OPTIONS.WELCOME && <WelcomePage/> }
+      { selectedPage === OPTIONS.COUNTER && <CounterPage/> }
+      { selectedPage === OPTIONS.CHECKBOX && <CheckboxPage/> }
     </div>
   );
 }
